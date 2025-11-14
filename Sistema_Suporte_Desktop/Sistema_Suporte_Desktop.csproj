@@ -1,0 +1,114 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="DotNetEnv" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.2" />
+    <PackageReference Include="OpenAI" Version="2.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="TelaDeCadastro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="TelaDeGerenciamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="TelaDeLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="TelaPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="UseControls\GChamadoFechamento.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UseControls\GChamadoPrioridade.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UseControls\GChamadoStatus.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UseControls\GTecnicoCadastro.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UseControls\GTecnicoEditado.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UseControls\GTecnicoExcluido.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UseControls\GUserControlAtendimentos.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UseControls\GUserControlChamados.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UseControls\GUserControlLogs.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UseControls\GUserControlSugestoes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UseControls\GUserControlTecnicos.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UseControls\GUserControlUsuarios.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UseControls\GUsuarioCadastro.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UseControls\GUsuarioEditado.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UseControls\GUsuarioExcluido.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UseControls\GUsuarioSenha.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UseControls\GUsuarioTecnico.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UseControls\MessageBubble.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UseControls\UserChamados.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UseControls\UserChamadosNovos.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UseControls\UserControlChamados.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UseControls\UserControlConta.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UseControls\UserControlTecnico.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UseControls\UserControlTecnicoAtendimento.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="UseControls\UserControlTelaPrincipal.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update=".env">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
