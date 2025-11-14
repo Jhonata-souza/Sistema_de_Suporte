@@ -5,7 +5,7 @@ O sistema organiza solicitações, facilita o acompanhamento dos chamados e regi
 
 ---
 
-## 🚀 Funcionalidades Principais
+## Funcionalidades Principais
 
 ### 👤 Usuários
 - Cadastro de usuários com nome, email e senha.
