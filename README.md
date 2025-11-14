@@ -1,4 +1,4 @@
-# 📞 Sistema de Suporte Técnico com IA
+# Sistema de Suporte Técnico com IA
 
 O **Sistema de Suporte Técnico com IA** é uma aplicação desenvolvida para Fazer atendimentos rapidos com Inteligência Artificial, gerenciar chamados, técnicos, atendimentos e usuários de forma simples e eficiente.  
 O sistema organiza solicitações, facilita o acompanhamento dos chamados e registra todas as soluções aplicadas pelos técnicos.
