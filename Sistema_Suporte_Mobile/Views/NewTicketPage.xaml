@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Sistema_Suporte_Mobile.Views.NewTicketPage"
+             Title="Novo Chamado">
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+
+        <Entry Placeholder="Título"
+               Text="{Binding Title}"/>
+
+        <Editor Placeholder="Descrição"
+                HeightRequest="120"
+                Text="{Binding Description}"/>
+
+        <Button Text="Salvar"
+                Command="{Binding SaveCommand}"/>
+    </VerticalStackLayout>
+</ContentPage>

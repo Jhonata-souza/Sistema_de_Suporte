@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:views="clr-namespace:Sistema_Suporte_Mobile.Views"
+       x:Class="Sistema_Suporte_Mobile.AppShell">
+
+    <ShellItem>
+        <ShellSection Title="Entrar">
+            <ShellContent ContentTemplate="{DataTemplate views:LoginPage}" />
+        </ShellSection>
+        <ShellSection Title="Chamados">
+            <ShellContent Route="/tickets" ContentTemplate="{DataTemplate views:TicketsPage}" />
+        </ShellSection>
+    </ShellItem>
+
+</Shell>

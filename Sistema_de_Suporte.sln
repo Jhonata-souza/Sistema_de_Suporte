@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sistema_Suporte_Blazor.Shar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sistema_Suporte_Desktop", "Sistema_Suporte_Desktop\Sistema_Suporte_Desktop.csproj", "{9783DC03-994A-CBFF-CC4F-5CADA10EA22B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sistema_Suporte_Mobile", "Sistema_Suporte_Mobile\Sistema_Suporte_Mobile.csproj", "{20A00129-D4D3-4560-940F-4E2552AC860E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,11 @@ Global
 		{9783DC03-994A-CBFF-CC4F-5CADA10EA22B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9783DC03-994A-CBFF-CC4F-5CADA10EA22B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9783DC03-994A-CBFF-CC4F-5CADA10EA22B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20A00129-D4D3-4560-940F-4E2552AC860E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20A00129-D4D3-4560-940F-4E2552AC860E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20A00129-D4D3-4560-940F-4E2552AC860E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{20A00129-D4D3-4560-940F-4E2552AC860E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20A00129-D4D3-4560-940F-4E2552AC860E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

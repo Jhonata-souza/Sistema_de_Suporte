@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Sistema_Suporte_Mobile.Views.TicketDetailPage"
+             Title="Detalhes">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="{Binding Ticket.Title}" FontSize="20" FontAttributes="Bold"/>
+
+            <Label Text="Descrição:" FontAttributes="Bold"/>
+            <Label Text="{Binding Ticket.Description}"/>
+
+            <Label Text="Status:" FontAttributes="Bold"/>
+            <Label Text="{Binding Ticket.Status}"/>
+
+            <Label Text="Criado em:" FontAttributes="Bold"/>
+            <Label Text="{Binding Ticket.CreatedAt}"/>
+
+            <Button Text="Responder (IA)"
+                    Command="{Binding AskIaCommand}"/>
+
+            <Label Text="Comentários:" FontAttributes="Bold"/>
+
+            <CollectionView ItemsSource="{Binding Comments}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="5" Padding="10">
+                            <Label Text="{Binding Text}"/>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
