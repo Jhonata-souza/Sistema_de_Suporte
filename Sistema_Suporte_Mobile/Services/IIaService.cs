@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Sistema_Suporte_Mobile.Models;
+﻿using System.Threading.Tasks;
 
 namespace Sistema_Suporte_Mobile.Services
 {

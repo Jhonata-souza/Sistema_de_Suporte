@@ -96,7 +96,7 @@ namespace Sistema_de_Suporte
                 using(var connection = new SqlConnection(banco.stringConnection))
                 {
                     connection.Open();
-                    var cmd = new SqlCommand("SELECT ID_USUARIO, NOME, EMAIL, SENHA, TIPO_USUARIO, CONSENTIMENTO_LGPD FROM TBUSUARIOS WHERE EMAIL = @EMAIL AND ATIVO = 1", connection);
+                    var cmd = new SqlCommand("SELECT ID_USUARIO, NOME, EMAIL, SENHA, TIPO_USUARIO, CONSENTIMENTO_LGPD, ATIVO FROM TBUSUARIOS WHERE EMAIL = @EMAIL AND ATIVO = 1", connection);
                     cmd.Parameters.AddWithValue("@EMAIL", email);
 
                     using (var reader = cmd.ExecuteReader())
@@ -113,7 +113,8 @@ namespace Sistema_de_Suporte
                                     Name = reader["NOME"].ToString(),
                                     Email = reader["EMAIL"].ToString(),
                                     TypeUser = reader["TIPO_USUARIO"].ToString(),
-                                    Consent = Convert.ToInt32(reader["CONSENTIMENTO_LGPD"])
+                                    Consent = Convert.ToInt32(reader["CONSENTIMENTO_LGPD"]),
+                                    Active = Convert.ToInt32(reader["ATIVO"])
                                 };
 
                                 // Registra o log de Login
@@ -468,8 +469,8 @@ namespace Sistema_de_Suporte
                         int count = (countObj == null || countObj ==  DBNull.Value) ? 0 : Convert.ToInt32(countObj);
                         if(count > 0)
                         {
-                            // A conta ja existia
-                            //MessageBox.Show("Usuário administrador já existe.");
+                            //A conta ja existia
+                            MessageBox.Show("Usuário administrador já existe.");
                         }
                         else
                         {

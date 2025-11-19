@@ -1,46 +1,48 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Maui.Animations;
 using Sistema_Suporte_Mobile.Models;
 using Sistema_Suporte_Mobile.Services;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
+using System.Diagnostics;
 
 namespace Sistema_Suporte_Mobile.ViewModels
 {
-    public partial class TicketsViewModel : ObservableObject, INotifyPropertyChanged, INotifyPropertyChanging
+    [QueryProperty(nameof(Token), "token")]
+    public partial class TicketsViewModel : ObservableObject
     {
         private readonly IApiService _api;
         private readonly IIaService _ia;
-        private readonly string _token;
+
+        private string _token;
+        public string Token
+        {
+            get => _token;
+            set
+            {
+                SetProperty(ref _token, value);
+
+                // Carregar os tickets automaticamente quando o token chegar
+                _ = LoadTicketsAsync();
+            }
+        }
 
         public TicketsViewModel(IApiService api, IIaService ia)
         {
             _api = api;
             _ia = ia;
-            _token = "mock-token";
 
             Tickets = new ObservableCollection<Ticket>();
         }
 
-        // Lista visível na UI
         [ObservableProperty]
         private ObservableCollection<Ticket> tickets;
 
-        // Indica loading na View
         [ObservableProperty]
         private bool isBusy;
 
-        // Texto de busca
         [ObservableProperty]
         private string searchQuery;
 
-        // Carrega todos os tickets
         [RelayCommand]
         public async Task LoadTicketsAsync()
         {
@@ -49,7 +51,7 @@ namespace Sistema_Suporte_Mobile.ViewModels
 
             try
             {
-                var list = await _api.GetTicketsAsync(_token);
+                var list = await _api.GetTicketsAsync(Token);
                 Tickets.Clear();
 
                 foreach (var t in list)
@@ -65,23 +67,21 @@ namespace Sistema_Suporte_Mobile.ViewModels
             }
         }
 
-        // Abre o detalhe de um ticket
         [RelayCommand]
         public async Task OpenDetailsAsync(Ticket ticket)
         {
             if (ticket == null) return;
 
-            await Shell.Current.GoToAsync($"ticketdetails?id={ticket.Id}");
+            await Shell.Current.GoToAsync($"ticketDetail?id={ticket.Id}&token={Token}");
         }
 
-        // Cria novo ticket
+
         [RelayCommand]
         public async Task CreateTicketAsync()
         {
-            await Shell.Current.GoToAsync("newticket");
+            await Shell.Current.GoToAsync($"newTicket?token={Token}");
         }
 
-        // Busca tickets na lista já carregada
         [RelayCommand]
         public void SearchTickets()
         {
@@ -101,3 +101,4 @@ namespace Sistema_Suporte_Mobile.ViewModels
         }
     }
 }
+

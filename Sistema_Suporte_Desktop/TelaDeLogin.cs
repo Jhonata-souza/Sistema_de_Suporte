@@ -43,7 +43,7 @@ namespace Sistema_de_Suporte
                 usuario = new Usuario();
                 Usuario usuarioLogado = usuario.LoginVerifier(email, senha);
 
-                if(usuarioLogado != null || usuarioLogado.Active != 0)
+                if(usuarioLogado != null && usuarioLogado.Active != 0)
                 {
                     AbrirTela(usuarioLogado);
                     MessageBox.Show("Login efetuado com sucesso", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);

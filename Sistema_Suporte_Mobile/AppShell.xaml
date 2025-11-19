@@ -9,7 +9,7 @@
             <ShellContent ContentTemplate="{DataTemplate views:LoginPage}" />
         </ShellSection>
         <ShellSection Title="Chamados">
-            <ShellContent Route="/tickets" ContentTemplate="{DataTemplate views:TicketsPage}" />
+            <ShellContent ContentTemplate="{DataTemplate views:TicketsPage}" />
         </ShellSection>
     </ShellItem>
 

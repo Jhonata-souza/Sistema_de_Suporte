@@ -1,10 +1,16 @@
-﻿namespace Sistema_Suporte_Mobile
+﻿using Sistema_Suporte_Mobile.Views;
+
+namespace Sistema_Suporte_Mobile;
+
+public partial class AppShell : Shell
 {
-    public partial class AppShell : Shell
+    public AppShell()
     {
-        public AppShell()
-        {
-            this.InitializeComponent();
-        }
+        InitializeComponent();
+
+        Routing.RegisterRoute("tickets", typeof(TicketsPage));
+        Routing.RegisterRoute("ticketDetail", typeof(TicketDetailPage));
+        Routing.RegisterRoute("newTicket", typeof(NewTicketPage));
     }
 }
+

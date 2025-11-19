@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using SQLite;
+﻿using SQLite;
 using Sistema_Suporte_Mobile.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Sistema_Suporte_Mobile.Services
 {
     public class LocalDbService
     {
         private readonly SQLiteAsyncConnection _db;
-
 
         public LocalDbService(string dbPath)
         {
@@ -21,7 +16,6 @@ namespace Sistema_Suporte_Mobile.Services
             _db.CreateTableAsync<Ticket>().Wait();
             _db.CreateTableAsync<Comment>().Wait();
         }
-
 
         public Task<List<Ticket>> GetCachedTicketsAsync() => _db.Table<Ticket>().ToListAsync();
         public Task<int> SaveTicketAsync(Ticket t) => _db.InsertOrReplaceAsync(t);

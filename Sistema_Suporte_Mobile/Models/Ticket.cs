@@ -18,5 +18,6 @@ namespace Sistema_Suporte_Mobile.Models
         public DateTime CreatedAt { get; set; }
         public DateTime? ClosedAt { get; set; }
         public string AiSummary { get; set; }
+        public string AiResponse { get; set; }
     }
 }

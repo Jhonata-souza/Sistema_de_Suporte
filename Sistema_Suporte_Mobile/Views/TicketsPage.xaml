@@ -7,7 +7,7 @@
     <VerticalStackLayout Padding="10">
 
         <Button Text="Novo Chamado"
-                Command="{Binding NewTicketCommand}"/>
+                Command="{Binding CreateTicketCommand}" />
 
         <CollectionView ItemsSource="{Binding Tickets}"
                         SelectionMode="Single"
@@ -15,11 +15,27 @@
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame Padding="10" Margin="5">
+                    <Frame Padding="10"
+                           Margin="5"
+                           HasShadow="True"
+                           CornerRadius="10"
+                           BackgroundColor="{AppThemeBinding Light='White', Dark='#1E1E1E'}"
+                           BorderColor="{AppThemeBinding Light='#ccc', Dark='#444'}">
+
                         <VerticalStackLayout>
-                            <Label Text="{Binding Title}" FontAttributes="Bold"/>
-                            <Label Text="{Binding Status}" FontAttributes="Italic"/>
+
+                            <Label Text="{Binding Title}"
+                                   FontAttributes="Bold"
+                                   TextColor="{AppThemeBinding Light='Black', Dark='White'}"
+                                   FontSize="18"/>
+
+                            <Label Text="{Binding Status}"
+                                   FontAttributes="Italic"
+                                   TextColor="{AppThemeBinding Light='#555', Dark='#ccc'}"
+                                   FontSize="14"/>
+
                         </VerticalStackLayout>
+
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

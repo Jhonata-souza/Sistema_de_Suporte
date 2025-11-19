@@ -11,6 +11,8 @@ namespace Sistema_Suporte_Mobile;
 
 public static class MauiProgram
 {
+    public static object Services { get; internal set; }
+
     public static MauiApp CreateMauiApp()
     {
         var builder = MauiApp.CreateBuilder();
@@ -30,6 +32,7 @@ public static class MauiProgram
         // Services
         builder.Services.AddSingleton<Services.IApiService, Services.ApiService>();
         builder.Services.AddSingleton<Services.IIaService, Services.IaService>();
+        builder.Services.AddSingleton(sp => new OpenAiService("OPENAI_KEY"));
 
 
         // Local DB path
@@ -50,6 +53,7 @@ public static class MauiProgram
         builder.Services.AddTransient<Views.TicketDetailPage>();
         builder.Services.AddTransient<Views.NewTicketPage>();
 
+        //builder.Services.AddSingleton<IAuthService, AuthService>();
 
         return builder.Build();
     }

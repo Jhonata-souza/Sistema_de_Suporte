@@ -8,18 +8,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace Sistema_Suporte_Mobile.ViewModels
 {
-    public partial class NewTicketViewModel : ObservableObject, INotifyPropertyChanged, INotifyPropertyChanging
+    [QueryProperty(nameof(Token), "token")]
+    public partial class NewTicketViewModel : ObservableObject
     {
         private readonly IApiService _api;
-        private readonly string _token;
 
-        public NewTicketViewModel(IApiService api, string token)
+        public NewTicketViewModel(IApiService api)
         {
             _api = api;
-            _token = token;
+            Debug.WriteLine(">>> CONSTRUTOR DO NewTicketViewModel FOI CHAMADO <<<");
+        }
+
+        private string _token;
+        public string Token
+        {
+            get => _token;
+            set
+            {
+                _token = value;
+                //Debug.WriteLine(">>> TOKEN SETADO PELO SHELL NO NewTicketViewModel <<<");
+                //Debug.WriteLine($"TOKEN RECEBIDO: {_token}");
+            }
         }
 
         [ObservableProperty]
@@ -38,7 +51,6 @@ namespace Sistema_Suporte_Mobile.ViewModels
         public async Task CreateTicketAsync()
         {
             if (isBusy) return;
-
             isBusy = true;
 
             try
@@ -51,11 +63,12 @@ namespace Sistema_Suporte_Mobile.ViewModels
                     CreatedAt = DateTime.Now
                 };
 
-                await _api.CreateTicketAsync(ticket, _token);
+                await _api.CreateTicketAsync(ticket, Token);
 
-                await Shell.Current.DisplayAlert("Sucesso", "Chamado criado!", "OK");
-
-                await Shell.Current.GoToAsync(".."); // volta para tela anterior
+                await Shell.Current.DisplayAlert("Sucesso", $"Chamado criado!", "OK");
+                Debug.WriteLine($"Chamado criado: {title}");
+                //Debug.WriteLine($"TOKEN USADO: {Token}");
+                await Shell.Current.GoToAsync("..");
             }
             catch (Exception ex)
             {

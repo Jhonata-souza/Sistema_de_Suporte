@@ -1,37 +1,55 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Sistema_Suporte_Mobile.ViewModels"
              x:Class="Sistema_Suporte_Mobile.Views.TicketDetailPage"
-             Title="Detalhes">
+             Title="Detalhes do Chamado">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
 
-            <Label Text="{Binding Ticket.Title}" FontSize="20" FontAttributes="Bold"/>
+            <Label Text="Título" FontAttributes="Bold"/>
+            <Entry Placeholder="Digite o título"
+               Text="{Binding Ticket.Title}" />
 
-            <Label Text="Descrição:" FontAttributes="Bold"/>
-            <Label Text="{Binding Ticket.Description}"/>
+            <Label Text="Descrição" FontAttributes="Bold"/>
+            <Editor Placeholder="Digite a descrição"
+                Text="{Binding Ticket.Description}"
+                HeightRequest="120" />
 
-            <Label Text="Status:" FontAttributes="Bold"/>
-            <Label Text="{Binding Ticket.Status}"/>
+            <Button Text="Salvar Ticket"
+                Command="{Binding SaveTicketCommand}" />
 
-            <Label Text="Criado em:" FontAttributes="Bold"/>
-            <Label Text="{Binding Ticket.CreatedAt}"/>
+            <!-- Status e Data -->
+            <HorizontalStackLayout Spacing="20"
+                               IsVisible="{Binding Ticket.Id, Converter={StaticResource IntGreaterThanZeroConverter}}">
+                <Label Text="Status:" FontAttributes="Bold"/>
+                <Label Text="{Binding Ticket.Status}" />
+                <Label Text="Criado em:" FontAttributes="Bold"/>
+                <Label Text="{Binding Ticket.CreatedAt, StringFormat='{0:dd/MM/yyyy HH:mm}'}" />
+            </HorizontalStackLayout>
 
-            <Button Text="Responder (IA)"
-                    Command="{Binding AskIaCommand}"/>
+            <!-- Botão Resumo IA -->
+            <!--<Button Text="Gerar Resumo IA"
+                Command="{Binding GenerateAiSummaryCommand}"
+                IsEnabled="{Binding Ticket.Id, Converter={StaticResource IntGreaterThanZeroConverter}}" />
 
-            <Label Text="Comentários:" FontAttributes="Bold"/>
+            <Frame BackgroundColor="#f0f0f0" Padding="10"
+               IsVisible="{Binding Ticket.AiSummary, Converter={StaticResource StringNotNullOrEmptyConverter}}">
+                <Label Text="{Binding Ticket.AiSummary}" LineBreakMode="WordWrap"/>
+            </Frame>-->
 
-            <CollectionView ItemsSource="{Binding Comments}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame Margin="5" Padding="10">
-                            <Label Text="{Binding Text}"/>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+            <!-- Botão Resposta IA -->
+            <Button Text="Gerar Resposta IA"
+                Command="{Binding GenerateAiResponseCommand}"
+                IsEnabled="{Binding Ticket.Id, Converter={StaticResource IntGreaterThanZeroConverter}}" />
+
+            <Frame BackgroundColor="#f0f0f0" Padding="10"
+               IsVisible="{Binding Ticket.AiResponse, Converter={StaticResource StringNotNullOrEmptyConverter}}">
+                <Label Text="{Binding Ticket.AiResponse}" LineBreakMode="WordWrap" TextColor="Black"/>
+            </Frame>
+
         </VerticalStackLayout>
     </ScrollView>
+
 </ContentPage>

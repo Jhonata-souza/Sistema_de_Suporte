@@ -10,7 +10,8 @@ namespace WinFormsApp1
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
+            Usuario admin = new Usuario();
+            admin.CreateAdmin();
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new TelaDeLogin());

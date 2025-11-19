@@ -3,60 +3,108 @@ using CommunityToolkit.Mvvm.Input;
 using Sistema_Suporte_Mobile.Models;
 using Sistema_Suporte_Mobile.Services;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
+using System.Diagnostics;
 using System.Threading.Tasks;
-using System.ComponentModel;
 
 namespace Sistema_Suporte_Mobile.ViewModels
 {
-    public partial class TicketDetailViewModel : ObservableObject, INotifyPropertyChanged, INotifyPropertyChanging
+    [QueryProperty(nameof(TicketId), "id")]
+    [QueryProperty(nameof(Token), "token")]
+    public partial class TicketDetailViewModel : ObservableObject
     {
         private readonly IApiService _api;
         private readonly IIaService _ia;
-        private readonly string _token;
 
-        public TicketDetailViewModel(IApiService api, IIaService ia, string token)
+        public TicketDetailViewModel(IApiService api, IIaService ia)
         {
             _api = api;
             _ia = ia;
-            _token = token;
+
+            // Inicializa o ticket para evitar nulos
+            Ticket = new Ticket();
+        }
+
+        private int _ticketId;
+        public int TicketId
+        {
+            get => _ticketId;
+            set
+            {
+                SetProperty(ref _ticketId, value);
+                _ = LoadTicketAsync();
+            }
+        }
+
+        private string _token;
+        public string Token
+        {
+            get => _token;
+            set => SetProperty(ref _token, value);
         }
 
         [ObservableProperty]
         private Ticket ticket;
 
         [ObservableProperty]
-        private string newComment;
-
-        [ObservableProperty]
         private bool isBusy;
 
-        public async void ApplyQueryAttributes(IDictionary<string, object> query)
+        // Comando para carregar ticket
+        [RelayCommand]
+        public async Task LoadTicketAsync()
         {
-            if (query.ContainsKey("id"))
+            IsBusy = true;
+            try
             {
-                int id = int.Parse(query["id"].ToString());
-                await LoadTicketAsync(id);
+                if (TicketId > 0)
+                {
+                    var t = await _api.GetTicketAsync(TicketId, Token);
+                    Ticket = t ?? new Ticket();
+                }
+                else
+                {
+                    Ticket = new Ticket(); // novo ticket
+                }
+
+                // Notifica que os comandos podem atualizar IsEnabled
+                OnPropertyChanged(nameof(Ticket));
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 
+        // Comando para salvar ticket
         [RelayCommand]
-        public async Task LoadTicketAsync(int id)
+        public async Task SaveTicketAsync()
         {
-            if (IsBusy) return;
+            if (string.IsNullOrWhiteSpace(Ticket.Title) || string.IsNullOrWhiteSpace(Ticket.Description))
+            {
+                //await Shell.Current.DisplayAlert("Erro", "Título e descrição são obrigatórios!", "OK");
+                return;
+            }
 
             IsBusy = true;
-
             try
             {
-                Ticket = await _api.GetTicketAsync(id, _token);
-            }
-            catch (Exception ex)
-            {
-                await Shell.Current.DisplayAlert("Erro", ex.Message, "OK");
+                if (Ticket.Id == 0) // Novo ticket
+                {
+                    Ticket.Status = "Aberto";
+                    Ticket.CreatedAt = new DateTime(2025, 11, 18, 14, 30, 0);
+                    Ticket.UserId = 1; // mock usuário logado
+
+                    var criado = await _api.CreateTicketAsync(Ticket, Token);
+                    Ticket = criado;
+
+                    await Shell.Current.DisplayAlert("Sucesso", "Ticket criado!", "OK");
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Info", "Ticket já existe!", "OK");
+                }
+
+                // Atualiza bindings para habilitar botões IA
+                OnPropertyChanged(nameof(Ticket));
             }
             finally
             {
@@ -67,23 +115,19 @@ namespace Sistema_Suporte_Mobile.ViewModels
         [RelayCommand]
         public async Task GenerateAiSummaryAsync()
         {
-            if (Ticket == null) return;
+            if (Ticket == null || string.IsNullOrWhiteSpace(Ticket.Description)) return;
 
             Ticket.AiSummary = await _ia.GenerateSummaryAsync(Ticket.Description);
-
-            await Shell.Current.DisplayAlert("IA", "Resumo gerado!", "OK");
+            OnPropertyChanged(nameof(Ticket));
         }
 
         [RelayCommand]
-        public async Task AddCommentAsync()
+        public async Task GenerateAiResponseAsync()
         {
-            if (string.IsNullOrWhiteSpace(NewComment)) return;
+            if (Ticket == null || string.IsNullOrWhiteSpace(Ticket.Description)) return;
 
-            await Shell.Current.DisplayAlert("Erro", "Função de adicionar comentário não implementada no serviço de API.", "OK");
-
-            NewComment = string.Empty;
-
-            await LoadTicketAsync(Ticket.Id);
+            Ticket.AiResponse = await _ia.SuggestReplyAsync(Ticket.Description);
+            OnPropertyChanged(nameof(Ticket));
         }
     }
 }

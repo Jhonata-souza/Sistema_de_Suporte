@@ -9,6 +9,7 @@ using CommunityToolkit.Mvvm.Input;
 
 using Sistema_Suporte_Mobile.Services;
 using Sistema_Suporte_Mobile.Models;
+using System.Diagnostics;
 
 namespace Sistema_Suporte_Mobile.ViewModels
 {
@@ -38,10 +39,10 @@ namespace Sistema_Suporte_Mobile.ViewModels
         {
             try
             {
-                var user = await _api.LoginAsync(Email ?? string.Empty, Password ?? string.Empty);
+                var user = await _api.LoginAsync(Email, Password);
                 await _local.SaveUserAsync(user);
                 // Navegar para Tickets
-                await Shell.Current.GoToAsync("/tickets");
+                await Shell.Current.GoToAsync($"/tickets?token={user.Token}");
             }
             catch (Exception ex)
             {
