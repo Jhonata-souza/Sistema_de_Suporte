@@ -362,3 +362,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /Sistema_Suporte_Desktop/.env
+/Sistema_Suporte_Mobile/.env
